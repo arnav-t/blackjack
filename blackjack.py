@@ -2,7 +2,7 @@ import pywikibot
 from pywikibot import pagegenerators
 import json
 import re
-import progressbar
+from tqdm import tqdm
 
 site = pywikibot.Site('en', 'metakgp')
 
@@ -56,18 +56,17 @@ def addGrades(courseCode):
 def main():
     cat = pywikibot.Category(site,'Category:Courses')
     gen = pagegenerators.CategorizedPageGenerator(cat)
-    global allcourses 
+    global allcourses
     allcourses = {i.title()[:7]:i for i in gen}
     # allcourses = dict(allcourses.items()[0:20])
     # Update existing courses
     alreadyExistingGrades = []
     print 'Fetching existing grades'
-    with progressbar.ProgressBar(max_value=len(allcourses)) as bar:
-        for n, i in enumerate(allcourses):
-            if re.findall(r'{{Grades.*[0-9].* }}',allcourses[i].text,re.DOTALL):
-                alreadyExistingGrades.append(i)
-            bar.update(n)
-
+    
+    for i in tqdm(allcourses):
+        if re.findall(r'{{Grades.*[0-9].* }}',allcourses[i].text,re.DOTALL):
+            alreadyExistingGrades.append(i)
+    
     for code in alreadyExistingGrades:
         try:
             if not currentGradesOnWiki(code) == newGrades[code]['grades']:

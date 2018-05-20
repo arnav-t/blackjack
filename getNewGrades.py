@@ -5,7 +5,7 @@ from tqdm import tqdm
 import threading
 import urllib2
 
-cookie = 'F790E477E2993484C3780028C47AB1E6.worker2'
+cookie = '480027F9E01D907AC9211ACCC53F64B7.worker3'
 NUM_THREADS = 1
 
 def load(file):
