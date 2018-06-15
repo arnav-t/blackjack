@@ -5,7 +5,7 @@ from tqdm import tqdm
 import threading
 import urllib2
 
-cookie = '480027F9E01D907AC9211ACCC53F64B7.worker3'
+cookie = '1265E71286E3CB350AA1343E6D2D3D62.worker2'
 NUM_THREADS = 1
 
 def load(file):
@@ -29,7 +29,7 @@ opener = urllib2.build_opener()
 opener.addheaders.append(('Cookie', 'JSESSIONID={}'.format(cookie)))
         
 def getGrades(code):
-    f = opener.open("https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno={}".format(code))
+    f = opener.open("https://erp.iitkgp.ac.in/Acad/Pre_Registration/subject_grade_status.jsp?subno={}".format(code))
     nums = re.findall('([A-Z\s]+)\(No. of Student\) : ([0-9]+)', f.read())
     if len(nums)!=0:
         return {str(d[0].strip()): int(d[1]) for d in nums}
