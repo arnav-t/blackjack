@@ -6,8 +6,9 @@ import json
 import multiprocessing as mp
 import urllib2
 import time
+import os
 
-cookie = 'A9E69ED40E56337D0E967F2E8C094704.worker2'
+cookie = os.environ['JSESSIONID']
 NUM_PROCS = 32
 
 
